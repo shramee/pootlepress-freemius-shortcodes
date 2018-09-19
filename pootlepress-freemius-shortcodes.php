@@ -14,7 +14,7 @@ Author URI: http://shramee.me/
  * @param $args
  * @return string
  */
-function fs_buy_ppbpro( $args ) {
+function pfsc_ppbpro( $args ) {
 	$args = wp_parse_args(
 		$args,
 		array(
@@ -55,14 +55,14 @@ function fs_buy_ppbpro( $args ) {
 	</script>
 </div>";
 }
-add_shortcode( 'fs_buy_ppbpro', 'fs_buy_ppbpro' );
+add_shortcode( 'fs_buy_ppbpro', 'pfsc_ppbpro' );
 
 /**
  * 18 tags Pro short code
  * @param $args
  * @return string
  */
-function fs_buy_18tp( $args ) {
+function pfsc_18tp( $args ) {
 	$args = wp_parse_args(
 		$args,
 		array(
@@ -104,14 +104,14 @@ function fs_buy_18tp( $args ) {
 </div>
 HTML;
 }
-add_shortcode( 'fs_buy_18tp', 'fs_buy_18tp' );
+add_shortcode( 'fs_buy_18tp', 'pfsc_18tp' );
 
 /**
  * Storefront Pro short code
  * @param $args
  * @return string
  */
-function fs_buy_sfpro( $args ) {
+function pfsc_sfpro( $args ) {
 	$args = wp_parse_args(
 		$args,
 		array(
@@ -156,14 +156,14 @@ function fs_buy_sfpro( $args ) {
 </div>
 HTML;
 }
-add_shortcode( 'fs_buy_sfpro', 'fs_buy_sfpro' );
+add_shortcode( 'fs_buy_sfpro', 'pfsc_sfpro' );
 
 /**
  * Storefront Blocks short code
  * @param $args
  * @return string
  */
-function fs_buy_sfblocks( $args ) {
+function pfsc_sfblocks( $args ) {
 	$args = wp_parse_args(
 		$args,
 		array(
@@ -208,4 +208,4 @@ function fs_buy_sfblocks( $args ) {
 </div>
 HTML;
 }
-add_shortcode( 'fs_buy_sfblocks', 'fs_buy_sfblocks' );
+add_shortcode( 'fs_buy_sfblocks', 'pfsc_sfblocks' );
