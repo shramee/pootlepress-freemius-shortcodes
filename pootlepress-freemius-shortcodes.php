@@ -167,6 +167,7 @@ function pfsc_sfblocks( $args ) {
 	$args = wp_parse_args(
 		$args,
 		array(
+			'trial' => 'Free trial',
 			'label' => 'Buy now',
 		)
 	);
@@ -183,11 +184,13 @@ function pfsc_sfblocks( $args ) {
 			</select></td>
 		</tr>
 	</table>
+	<button id='fs-ppb-trial-button'>{$args['trial']}</button>
 	<button id='fs-ppb-buy-button'>{$args['label']}</button>
 	<script src='https://checkout.freemius.com/checkout.min.js'></script>
 	<script>
 	(function($){
-		var fsCoSfPHandler = FS.Checkout.configure({
+		var
+			fsCoSfPHandler = FS.Checkout.configure({
 				plugin_id: '2380',
 				plan_id: '4051',
 				public_key: 'pk_efd8794cafe3f672e71163b8ce2e1',
@@ -198,12 +201,19 @@ function pfsc_sfblocks( $args ) {
 				success: function(response) {},
 				licenses: 1
 			};
-	    $('#fs-ppb-buy-button').on( 'click', function(e) {
-		   	e.preventDefault();
-		   	fsCoSFPOpenArgs.licenses = $('#fs-ppb-license').val();
-		   	fsCoSfPHandler.open( fsCoSFPOpenArgs );
+		$('#fs-ppb-trial-button').on( 'click', function(e) {
+			e.preventDefault();
+			fsCoSFPOpenArgs.trial = true;
+			fsCoSFPOpenArgs.licenses = $('#fs-ppb-license').val();
+			fsCoSfPHandler.open( fsCoSFPOpenArgs );
 		} );
-	})(jQuery);
+		$('#fs-ppb-buy-button').on( 'click', function(e) {
+			e.preventDefault();
+			delete fsCoSFPOpenArgs.trial;
+			fsCoSFPOpenArgs.licenses = $('#fs-ppb-license').val();
+			fsCoSfPHandler.open( fsCoSFPOpenArgs );
+		} );
+	} )(jQuery);
 	</script>
 </div>
 HTML;
