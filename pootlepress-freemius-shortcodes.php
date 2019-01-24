@@ -177,9 +177,9 @@ function pfsc_sfblocks( $args ) {
 		<tr>
 			<td>License</td>
 			<td><select id='fs-ppb-license'>
-				<option value="1" selected="selected">1 site ($75)</option>
-				<option value="5">5 sites ($125)</option>
-				<option value="25">25 sites ($149)</option>
+				<option value="1" selected="selected">1 site ($49)</option>
+				<option value="5">5 sites ($75)</option>
+				<option value="25">25 sites ($99)</option>
 				<option value="unlimited">Unlimited sites ($199)</option>
 			</select></td>
 		</tr>
