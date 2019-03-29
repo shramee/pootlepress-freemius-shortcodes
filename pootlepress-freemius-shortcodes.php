@@ -219,3 +219,65 @@ function pfsc_sfblocks( $args ) {
 HTML;
 }
 add_shortcode( 'fs_buy_sfblocks', 'pfsc_sfblocks' );
+
+/**
+ * Storefront Blocks short code
+ * @param $args
+ * @return string
+ */
+function pfsc_woobuilder_blocks( $args ) {
+	$args = wp_parse_args(
+		$args,
+		array(
+			'trial' => 'Free trial',
+			'label' => 'Buy now',
+		)
+	);
+	return <<<HTML
+<div class='fs-ppb-wrap'>
+	<table width='300'>
+		<tr>
+			<td>License</td>
+			<td><select id='fs-ppb-license'>
+				<option value="1" selected="selected">1 site ($49)</option>
+				<option value="5">5 sites ($75)</option>
+				<option value="25">25 sites ($99)</option>
+				<option value="unlimited">Unlimited sites ($199)</option>
+			</select></td>
+		</tr>
+	</table>
+	<!--<button id='fs-ppb-trial-button'>{$args['trial']}</button>-->
+	<button id='fs-ppb-buy-button'>{$args['label']}</button>
+	<script src='https://checkout.freemius.com/checkout.min.js'></script>
+	<script>
+	(function($){
+		var
+			fsCoSfPHandler = FS.Checkout.configure({
+				plugin_id: '3514',
+				plan_id: '5685',
+				public_key: 'pk_c52effbb9158dc8c4098e44429e4a',
+//				image: 'https://ps.w.org/pootle-page-builder/assets/icon-128x128.png?rev=1412533'
+			}),
+			fsCoSFPOpenArgs = {
+				name: 'Storefront pro',
+				success: function(response) {},
+				licenses: 1
+			};
+		$('#fs-ppb-trial-button').on( 'click', function(e) {
+			e.preventDefault();
+			fsCoSFPOpenArgs.trial = true;
+			fsCoSFPOpenArgs.licenses = $('#fs-ppb-license').val();
+			fsCoSfPHandler.open( fsCoSFPOpenArgs );
+		} );
+		$('#fs-ppb-buy-button').on( 'click', function(e) {
+			e.preventDefault();
+			delete fsCoSFPOpenArgs.trial;
+			fsCoSFPOpenArgs.licenses = $('#fs-ppb-license').val();
+			fsCoSfPHandler.open( fsCoSFPOpenArgs );
+		} );
+	} )(jQuery);
+	</script>
+</div>
+HTML;
+}
+add_shortcode( 'fs_buy_woobuilder_blocks', 'pfsc_woobuilder_blocks' );
