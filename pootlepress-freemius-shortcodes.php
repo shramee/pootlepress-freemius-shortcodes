@@ -100,20 +100,22 @@ class Pootlepress_Freemius_Shortcodes {
 			</header>
 	
 			<section class='br2 br--bottom pa4 flex flex-column items-center' style='background:#fff;'>
-				<div class='f3 o-70 strike'>$99.00</div>
+				<!--<div class='f3 o-70 strike'>$99.00</div>-->
 				<div class='f1'>$59.40</div>
-				<div class='accent2 accent2-callout br2 pt1 ph2'>SAVE $39.60</div>
+				<!--<div class='accent2 accent2-callout br2 pt1 ph2'>SAVE $39.60</div>-->
 	
+<!--
 				<div class='f5 mv3'>Then $99<span class='o-70 f6'> / year</span></div>
+-->
 	
 				<ul class='w-100 tl mv3'>
 					<li>Single site license</li>
 					<li>1 year support and updates</li>
-					<li>30-day Money Back Guarantee</li>
+					<li>14-day Money Back Guarantee</li>
 				</ul>
 	
 					<div class='f5 w-90 mt3' style='min-height: 7em;'>
-						After today's payment you subscription will renew automatically each year at the normal price of $99 until cancelled.
+						You can cancel your subscription at any time and the plugin will still be active, however you won't get updates or support in the following year.
 				</div>
 				<button id='fs-$id-buy-annual'class='br2 accent'>Buy now</button>
 				<div class='f5 pt3'>Or <a href='#'>start 14-day free trial</a></div>
@@ -126,16 +128,18 @@ class Pootlepress_Freemius_Shortcodes {
 			</header>
 	
 			<section class='br2 br--bottom pa4 flex flex-column items-center' style='background:#fff;'>
-				<div class='f3 o-70 strike'>$299.00</div>
+				<!--<div class='f3 o-70 strike'>$299.00</div>-->
 				<div class='f1'>$239.20</div>
-				<div class='accent2 accent2-callout br2 pt1 ph2'>SAVE $59.20</div>
+				<!--<div class='accent2 accent2-callout br2 pt1 ph2'>SAVE $59.20</div>-->
 	
+<!--
 				<div class='f5 mv3'>&nbsp;</div>
+-->
 	
 				<ul class='w-100 tl mv3'>
 					<li>Single site license</li>
 					<li>Lifetime support and updates</li>
-					<li>30-day Money Back Guarantee</li>
+					<li>14-day Money Back Guarantee</li>
 				</ul>
 	
 					<div class='f5 w-90 mt3' style='min-height: 7em;'>
