@@ -4,6 +4,10 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 
 	protected function register_table_shortcodes() {
 		add_shortcode( 'fs_table_ppbpro', [ $this, 'render_ppbpro_table' ] );
+		add_shortcode( 'fs_table_18tp', [ $this, 'render_18tp_table' ] );
+		add_shortcode( 'fs_table_sfpro', [ $this, 'render_sfpro_table' ] );
+		add_shortcode( 'fs_table_sfblocks', [ $this, 'render_sfblocks_table' ] );
+		add_shortcode( 'fs_table_woobuilder_blocks', [ $this, 'render_woobuilder_blocks_table' ] );
 	}
 
 	protected function render_table_styles( $license_css ) {
@@ -195,13 +199,191 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 						'unlimited' => [
 							'label' => 'Unlimited sites license',
 							'annual' => '$149',
-							'lifetime' => '',
+							'lifetime' => ',
 						],
 					],
 					'fs_co_conf' => [
 						'plugin_id'  => '269',
 						'plan_id'    => '394',
 						'public_key' => 'pk_cb4e7b7932169240ac86c3fb01dd5',
+						'image'      => 'https://ps.w.org/pootle-page-builder/assets/icon-128x128.png?rev=1412533'
+					]
+				]
+			)
+		);
+	}
+
+
+	/**
+	 * 18 tags Pro short code
+	 * @param $args
+	 * @return string
+	 */
+	function render_18tp_table( $args ) {
+
+		return $this->render_select_button(
+			wp_parse_args(
+				$args,
+				[
+					'id'         => '18tp',
+					'name'       => 'Eighteen tags pro',
+					'licenses'   => [
+						'1'         => [
+							'label' => 'Single',
+							'annual' => '$99',
+							'lifetime' => '$99',
+						],
+						'5'         => [
+							'label' => '5',
+							'annual' => '$135',
+							'lifetime' => '$135',
+						],
+						'unlimited' => [
+							'label' => 'Unlimited',
+							'annual' => '$149',
+							'lifetime' => '',
+						],
+					],
+					'fs_co_conf' => [
+						'plugin_id'  => '648',
+						'plan_id'    => '917',
+						'public_key' => 'pk_3b97a222f67e150b78be694f9b239',
+						'image'      => 'https://ps.w.org/pootle-page-builder/assets/icon-128x128.png?rev=1412533'
+					]
+				]
+			)
+		);
+	}
+
+	/**
+	 * Storefront Pro short code
+	 * @param $args
+	 * @return string
+	 */
+	function render_sfpro_table( $args ) {
+		return $this->render_select_button(
+			wp_parse_args(
+				$args,
+				[
+					'id'         => 'sfp',
+					'name'       => 'Storefront pro',
+					'licenses'   => [
+						'1'         => [
+							'label' => 'Single',
+							'annual' => '$49',
+							'lifetime' => '$49',
+						],
+						'5'         => [
+							'label' => '5',
+							'annual' => '$75',
+							'lifetime' => '$75',
+						],
+						'25'         => [
+							'label' => '25',
+							'annual' => '$99',
+							'lifetime' => '$99',
+						],
+						'unlimited' => [
+							'label' => 'Unlimited',
+							'annual' => '$199',
+							'lifetime' => '',
+						],
+					],
+					'fs_co_conf' => [
+						'plugin_id'  => '553',
+						'plan_id'    => '784',
+						'public_key' => 'pk_4626a94d653f306db2491e3b43d1c',
+						'image'      => 'https://ps.w.org/pootle-page-builder/assets/icon-128x128.png?rev=1412533'
+					]
+				]
+			)
+		);
+	}
+
+	/**
+	 * Storefront Blocks short code
+	 * @param $args
+	 * @return string
+	 */
+	function render_sfblocks_table( $args ) {
+		return $this->render_select_button(
+			wp_parse_args(
+				$args,
+				[
+					'id'         => 'sfbk',
+					'name'       => 'Storefront blocks',
+					'licenses'   => [
+						'1'         => [
+							'label' => 'Single',
+							'annual' => '$49',
+							'lifetime' => '$49',
+						],
+						'5'         => [
+							'label' => '5',
+							'annual' => '$75',
+							'lifetime' => '$75',
+						],
+						'25'         => [
+							'label' => '25',
+							'annual' => '$99',
+							'lifetime' => '$99',
+						],
+						'unlimited' => [
+							'label' => 'Unlimited',
+							'annual' => '$199',
+							'lifetime' => '',
+						],
+					],
+					'fs_co_conf' => [
+						'plugin_id'  => '2380',
+						'plan_id'    => '4051',
+						'public_key' => 'pk_efd8794cafe3f672e71163b8ce2e1',
+						'image'      => 'https://ps.w.org/pootle-page-builder/assets/icon-128x128.png?rev=1412533'
+					]
+				]
+			)
+		);
+	}
+
+	/**
+	 * Storefront Blocks short code
+	 * @param $args
+	 * @return string
+	 */
+	function render_woobuilder_blocks_table( $args ) {
+
+		return $this->render_select_button(
+			wp_parse_args(
+				$args,
+				[
+					'id'         => 'woobk',
+					'name'       => 'WooBuilder blocks',
+					'licenses'   => [
+						'1'         => [
+							'label' => 'Single',
+							'annual' => '$49',
+							'lifetime' => '$49',
+						],
+						'5'         => [
+							'label' => '5',
+							'annual' => '$75',
+							'lifetime' => '$75',
+						],
+						'25'         => [
+							'label' => '25',
+							'annual' => '$99',
+							'lifetime' => '$99',
+						],
+						'unlimited' => [
+							'label' => 'Unlimited',
+							'annual' => '$199',
+							'lifetime' => '',
+						],
+					],
+					'fs_co_conf' => [
+						'plugin_id'  => '3514',
+						'plan_id'    => '5685',
+						'public_key' => 'pk_c52effbb9158dc8c4098e44429e4a',
 						'image'      => 'https://ps.w.org/pootle-page-builder/assets/icon-128x128.png?rev=1412533'
 					]
 				]
