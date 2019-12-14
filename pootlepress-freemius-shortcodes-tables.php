@@ -89,7 +89,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 		<script src='https://checkout.freemius.com/checkout.min.js'></script>
 		<script>
 			( function ( $ ) {
-				$( '#fs-$id-license' ).change( function() {
+				$( '#fs-table-$id-license' ).change( function() {
 					$(this).parent().attr( 'data-license-active', this.value );
 				} );
 				var fsHandler  = FS.Checkout.configure( " . json_encode( $args['fs_co_conf'] ) . " ),
@@ -144,7 +144,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 
 		echo $this->render_table_styles( $license_css );
 
-		echo "<select id='fs-$id-license' class='db mha mt3 mb4 f4'>$license_options</select>";
+		echo "<select id='fs-table-$id-license' class='db mha mt3 mb4 f4'>$license_options</select>";
 
 		foreach ( $args['licenses'] as $sites => $lic_data ) {
 			$lic_data['sites'] = $sites;
