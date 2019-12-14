@@ -199,7 +199,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 						'unlimited' => [
 							'label' => 'Unlimited sites license',
 							'annual' => '$149',
-							'lifetime' => ',
+							'lifetime' => '',
 						],
 					],
 					'fs_co_conf' => [
@@ -221,7 +221,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 	 */
 	function render_18tp_table( $args ) {
 
-		return $this->render_select_button(
+		return $this->render_table(
 			wp_parse_args(
 				$args,
 				[
@@ -231,12 +231,12 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 						'1'         => [
 							'label' => 'Single',
 							'annual' => '$99',
-							'lifetime' => '$99',
+							'lifetime' => '$199',
 						],
 						'5'         => [
 							'label' => '5',
 							'annual' => '$135',
-							'lifetime' => '$135',
+							'lifetime' => '$395',
 						],
 						'unlimited' => [
 							'label' => 'Unlimited',
@@ -261,7 +261,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 	 * @return string
 	 */
 	function render_sfpro_table( $args ) {
-		return $this->render_select_button(
+		return $this->render_table(
 			wp_parse_args(
 				$args,
 				[
@@ -271,17 +271,17 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 						'1'         => [
 							'label' => 'Single',
 							'annual' => '$49',
-							'lifetime' => '$49',
+							'lifetime' => '$199',
 						],
 						'5'         => [
 							'label' => '5',
 							'annual' => '$75',
-							'lifetime' => '$75',
+							'lifetime' => '$265',
 						],
 						'25'         => [
 							'label' => '25',
 							'annual' => '$99',
-							'lifetime' => '$99',
+							'lifetime' => '$595',
 						],
 						'unlimited' => [
 							'label' => 'Unlimited',
@@ -306,7 +306,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 	 * @return string
 	 */
 	function render_sfblocks_table( $args ) {
-		return $this->render_select_button(
+		return $this->render_table(
 			wp_parse_args(
 				$args,
 				[
@@ -316,17 +316,17 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 						'1'         => [
 							'label' => 'Single',
 							'annual' => '$49',
-							'lifetime' => '$49',
+							'lifetime' => '$199',
 						],
 						'5'         => [
 							'label' => '5',
 							'annual' => '$75',
-							'lifetime' => '$75',
+							'lifetime' => '$265',
 						],
 						'25'         => [
 							'label' => '25',
 							'annual' => '$99',
-							'lifetime' => '$99',
+							'lifetime' => '$595',
 						],
 						'unlimited' => [
 							'label' => 'Unlimited',
@@ -352,7 +352,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 	 */
 	function render_woobuilder_blocks_table( $args ) {
 
-		return $this->render_select_button(
+		return $this->render_table(
 			wp_parse_args(
 				$args,
 				[
@@ -362,17 +362,17 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 						'1'         => [
 							'label' => 'Single',
 							'annual' => '$49',
-							'lifetime' => '$49',
+							'lifetime' => '$199',
 						],
 						'5'         => [
 							'label' => '5',
 							'annual' => '$75',
-							'lifetime' => '$75',
+							'lifetime' => '$265',
 						],
 						'25'         => [
 							'label' => '25',
 							'annual' => '$99',
-							'lifetime' => '$99',
+							'lifetime' => '$595',
 						],
 						'unlimited' => [
 							'label' => 'Unlimited',
