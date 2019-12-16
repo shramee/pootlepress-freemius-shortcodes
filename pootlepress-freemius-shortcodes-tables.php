@@ -229,17 +229,17 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 					'name'       => 'Eighteen tags pro',
 					'licenses'   => [
 						'1'         => [
-							'label' => 'Single',
+							'label' => 'Single site license',
 							'annual' => '$99',
 							'lifetime' => '$199',
 						],
 						'5'         => [
-							'label' => '5',
+							'label' => 'Five sites license',
 							'annual' => '$135',
 							'lifetime' => '$395',
 						],
 						'unlimited' => [
-							'label' => 'Unlimited',
+							'label' => 'Unlimited sites license',
 							'annual' => '$149',
 							'lifetime' => '',
 						],
@@ -269,22 +269,22 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 					'name'       => 'Storefront pro',
 					'licenses'   => [
 						'1'         => [
-							'label' => 'Single',
+							'label' => 'Single site license',
 							'annual' => '$49',
 							'lifetime' => '$199',
 						],
 						'5'         => [
-							'label' => '5',
+							'label' => 'Five sites license',
 							'annual' => '$75',
 							'lifetime' => '$265',
 						],
 						'25'         => [
-							'label' => '25',
+							'label' => '25 sites license',
 							'annual' => '$99',
 							'lifetime' => '$595',
 						],
 						'unlimited' => [
-							'label' => 'Unlimited',
+							'label' => 'Unlimited sites license',
 							'annual' => '$199',
 							'lifetime' => '',
 						],
@@ -314,22 +314,22 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 					'name'       => 'Storefront blocks',
 					'licenses'   => [
 						'1'         => [
-							'label' => 'Single',
+							'label' => 'Single site license',
 							'annual' => '$49',
 							'lifetime' => '$199',
 						],
 						'5'         => [
-							'label' => '5',
+							'label' => 'Five sites license',
 							'annual' => '$75',
 							'lifetime' => '$265',
 						],
 						'25'         => [
-							'label' => '25',
+							'label' => '25 sites license',
 							'annual' => '$99',
 							'lifetime' => '$595',
 						],
 						'unlimited' => [
-							'label' => 'Unlimited',
+							'label' => 'Unlimited sites license',
 							'annual' => '$199',
 							'lifetime' => '',
 						],
@@ -360,22 +360,22 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 					'name'       => 'WooBuilder blocks',
 					'licenses'   => [
 						'1'         => [
-							'label' => 'Single',
+							'label' => 'Single site license',
 							'annual' => '$49',
 							'lifetime' => '$199',
 						],
 						'5'         => [
-							'label' => '5',
+							'label' => 'Five sites license',
 							'annual' => '$75',
 							'lifetime' => '$265',
 						],
 						'25'         => [
-							'label' => '25',
+							'label' => '25 sites license',
 							'annual' => '$99',
 							'lifetime' => '$595',
 						],
 						'unlimited' => [
-							'label' => 'Unlimited',
+							'label' => 'Unlimited sites license',
 							'annual' => '$199',
 							'lifetime' => '',
 						],
