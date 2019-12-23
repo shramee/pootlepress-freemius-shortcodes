@@ -25,20 +25,30 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 			$license_css . '</style>';
 	}
 
-	protected function render_table_annual( $id, $lic_data ) {
+	protected function render_table_annual( $args, $lic_data ) {
+		$id = $args['id'];
+
+		$label = $striked_price = '';
+		$price = $lic_data['lifetime'];
+
+		if ( ! empty( $args['discount'] ) ) {
+			$striked_price = "<div class='f3 o-70 strike'>$price</div>";
+			$price = $price * ( 100 - $args['discount'] ) / 100;
+			if ( ! empty( $args['label'] ) ) {
+				$label = "<div class='ph3' style='background: #0cf;color: #fff;'>$args[label]</div>";
+			}
+		}
+
 		return "<div class='w-40 flex flex-column justify-center items-center shadow-2' style='--accent:#000;--accent2:#499fc1;'>
 			<header class='br2 br--top w-100 accent pa3 f4 nt1'>
 				Annual license
 			</header>
 	
 			<section class='br2 br--bottom pa4 flex flex-column items-center' style='background:#fff;'>
-				<!--<div class='f3 o-70 strike'>$99.00</div>-->
-				<div class='f1'>$lic_data[annual]</div>
-				<!--<div class='accent2 accent2-callout br2 pt1 ph2'>SAVE $39.60</div>-->
-	
-<!--
-				<div class='f5 mv3'>Then $99<span class='o-70 f6'> / year</span></div>
--->
+
+				$striked_price
+				<div class='f1'>$price</div>
+				$label
 	
 				<ul class='w-100 tl mv3'>
 					<li>$lic_data[label]</li>
@@ -50,12 +60,25 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 						You can cancel your subscription at any time and the plugin will still be active, however you won't get updates or support in the following year.
 				</div>
 				<button data-sites='$lic_data[sites]' class='fs-$id-buy-annual'class='br2 accent'>Buy now</button>
-				<div class='f5 pt3'>Or <a href='#'>start 14-day free trial</a></div>
+				$args[trial]
 			</section>
 		</div>";
 	}
 
-	protected function render_table_lifetime( $id, $lic_data ) {
+	protected function render_table_lifetime( $args, $lic_data ) {
+		$id = $args['id'];
+
+		$label = $striked_price = '';
+		$price = $lic_data['lifetime'];
+
+		if ( ! empty( $args['discount'] ) ) {
+			$striked_price = "<div class='f3 o-70 strike'>$price</div>";
+			$price = $price * ( 100 - $args['discount'] ) / 100;
+			if ( ! empty( $args['label'] ) ) {
+				$label = "<div class='ph3' style='background: #0cf;color: #fff;'>$args[label]</div>";
+			}
+		}
+
 		return "<div class='w-40 flex flex-column justify-center items-center shadow-2' style='--accent:#ef4832;--accent2:#499fc1;'>
 			<div class='br2 br--top w-50 nt4 accent' style='background:#c02812;'>BEST DEAL</div>
 			<header class='br2 br--top w-100 accent pa3 f4'>
@@ -63,9 +86,10 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 			</header>
 	
 			<section class='br2 br--bottom pa4 flex flex-column items-center' style='background:#fff;'>
-				<!--<div class='f3 o-70 strike'>$299.00</div>-->
-				<div class='f1'>$lic_data[lifetime]</div>
-				<!--<div class='accent2 accent2-callout br2 pt1 ph2'>SAVE $59.20</div>-->
+
+				$striked_price
+				<div class='f1'>$price</div>
+				$label
 	
 <!--
 				<div class='f5 mv3'>&nbsp;</div>
@@ -81,7 +105,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 						A lifetime license entitles you to support and updates for the lifetime of the product.
 				</div>
 				<button data-sites='$lic_data[sites]' class='fs-$id-buy-lifetime'class='br2 accent'>Buy now</button>
-				<div class='f5 pt3'>Or <a href='#'>start 14-day free trial</a></div>
+				$args[trial]
 			</section>
 		</div>";
 	}
@@ -144,6 +168,11 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 			$license_css .= "[data-license-active='$sites'] .flex[data-license='$sites'] {display: flex}";
 		}
 
+
+		if ( $args['trial'] ) {
+			$args['trial'] = "<div class='f5 pt3'>Or <a href='#'>start 14-day free trial</a></div>";
+		}
+
 		echo "<div class='fs-$id-wrap' data-license-active='$first_license'>";
 
 		echo $this->render_table_styles( $license_css );
@@ -155,11 +184,11 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 			echo "<div class='flex items-center justify-around tc pv4' data-license='$sites'>";
 
 			if ( ! empty( $lic_data['annual'] )) {
-				echo $this->render_table_annual( $id, $lic_data );
+				echo $this->render_table_annual( $args, $lic_data );
 			}
 
 			if ( ! empty( $lic_data['lifetime'] )) {
-				echo $this->render_table_lifetime( $id, $lic_data );
+				echo $this->render_table_lifetime( $args, $lic_data );
 			}
 
 			echo '</div>';
