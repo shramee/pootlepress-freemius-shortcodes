@@ -8,6 +8,8 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 		add_shortcode( 'fs_table_sfpro', [ $this, 'render_sfpro_table' ] );
 		add_shortcode( 'fs_table_sfblocks', [ $this, 'render_sfblocks_table' ] );
 		add_shortcode( 'fs_table_woobuilder_blocks', [ $this, 'render_woobuilder_blocks_table' ] );
+		add_shortcode( 'fs_table2_sfblocks', [ $this, 'render_sfblocks_table2' ] );
+		add_shortcode( 'fs_table2_woobuilder_blocks', [ $this, 'render_woobuilder_blocks_table2' ] );
 	}
 
 	protected function render_table_styles( $license_css ) {
@@ -33,7 +35,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 
 		if ( ! empty( $args['discount'] ) ) {
 			$striked_price = "<div class='f3 o-70 strike'>$price</div>";
-			$price = $price * ( 100 - $args['discount'] ) / 100;
+			$price         = $price * ( 100 - $args['discount'] ) / 100;
 			if ( ! empty( $args['label'] ) ) {
 				$label = "<div class='ph3' style='background: #0cf;color: #fff;'>$args[label]</div>";
 			}
@@ -43,19 +45,19 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 			<header class='br2 br--top w-100 accent pa3 f4 nt1'>
 				Annual license
 			</header>
-	
+
 			<section class='br2 br--bottom pa4 flex flex-column items-center' style='background:#fff;'>
 
 				$striked_price
 				<div class='f1'>$price</div>
 				$label
-	
+
 				<ul class='w-100 tl mv3'>
 					<li>$lic_data[label]</li>
 					<li>1 year support and updates</li>
 					<li>14-day Money Back Guarantee</li>
 				</ul>
-	
+
 					<div class='f5 w-90 mt3' style='min-height: 7em;'>
 						You can cancel your subscription at any time and the plugin will still be active, however you won't get updates or support in the following year.
 				</div>
@@ -73,7 +75,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 
 		if ( ! empty( $args['discount'] ) ) {
 			$striked_price = "<div class='f3 o-70 strike'>$price</div>";
-			$price = $price * ( 100 - $args['discount'] ) / 100;
+			$price         = $price * ( 100 - $args['discount'] ) / 100;
 			if ( ! empty( $args['label'] ) ) {
 				$label = "<div class='ph3' style='background: #0cf;color: #fff;'>$args[label]</div>";
 			}
@@ -84,23 +86,23 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 			<header class='br2 br--top w-100 accent pa3 f4'>
 				Lifetime license
 			</header>
-	
+
 			<section class='br2 br--bottom pa4 flex flex-column items-center' style='background:#fff;'>
 
 				$striked_price
 				<div class='f1'>$price</div>
 				$label
-	
+
 <!--
 				<div class='f5 mv3'>&nbsp;</div>
 -->
-	
+
 				<ul class='w-100 tl mv3'>
 					<li>$lic_data[label]</li>
 					<li>Lifetime support and updates</li>
 					<li>14-day Money Back Guarantee</li>
 				</ul>
-	
+
 					<div class='f5 w-90 mt3' style='min-height: 7em;'>
 						A lifetime license entitles you to support and updates for the lifetime of the product.
 				</div>
@@ -148,15 +150,15 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 		$args = wp_parse_args(
 			$args,
 			array(
-				'label'   => 'Buy now',
+				'label' => 'Buy now',
 			)
 		);
 
-		$id = $args['id'];
+		$id          = $args['id'];
 		$license_css = '[data-license-active] [data-license] {display: none}';
 
 		$license_options = '';
-		$first_license = '';
+		$first_license   = '';
 
 		ob_start();
 
@@ -165,7 +167,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 				$first_license = $sites;
 			}
 			$license_options .= "<option value='$sites'>$lic_data[label]</option>";
-			$license_css .= "[data-license-active='$sites'] .flex[data-license='$sites'] {display: flex}";
+			$license_css     .= "[data-license-active='$sites'] .flex[data-license='$sites'] {display: flex}";
 		}
 
 
@@ -183,11 +185,11 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 			$lic_data['sites'] = $sites;
 			echo "<div class='flex items-center justify-around tc pv4' data-license='$sites'>";
 
-			if ( ! empty( $lic_data['annual'] )) {
+			if ( ! empty( $lic_data['annual'] ) ) {
 				echo $this->render_table_annual( $args, $lic_data );
 			}
 
-			if ( ! empty( $lic_data['lifetime'] )) {
+			if ( ! empty( $lic_data['lifetime'] ) ) {
 				echo $this->render_table_lifetime( $args, $lic_data );
 			}
 
@@ -203,7 +205,9 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 
 	/**
 	 * Pootle Page Builder Pro short code
+	 *
 	 * @param $args
+	 *
 	 * @return string
 	 */
 	function render_ppbpro_table( $args ) {
@@ -213,21 +217,21 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 				[
 					'id'         => 'ppbpro',
 					'name'       => 'pootle page builder',
-					'trial'			 => true,
-					'licenses'    => [
-						'1' => [
-							'label' => 'Single site license',
-							'annual' => '$99',
+					'trial'      => true,
+					'licenses'   => [
+						'1'         => [
+							'label'    => 'Single site license',
+							'annual'   => '$99',
 							'lifetime' => '$299',
 						],
-						'5' => [
-							'label' => 'Five sites license',
-							'annual' => '$135',
+						'5'         => [
+							'label'    => 'Five sites license',
+							'annual'   => '$135',
 							'lifetime' => '$395',
 						],
 						'unlimited' => [
-							'label' => 'Unlimited sites license',
-							'annual' => '$149',
+							'label'    => 'Unlimited sites license',
+							'annual'   => '$149',
 							'lifetime' => '',
 						],
 					],
@@ -245,7 +249,9 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 
 	/**
 	 * 18 tags Pro short code
+	 *
 	 * @param $args
+	 *
 	 * @return string
 	 */
 	function render_18tp_table( $args ) {
@@ -258,18 +264,18 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 					'name'       => 'Eighteen tags pro',
 					'licenses'   => [
 						'1'         => [
-							'label' => 'Single site license',
-							'annual' => '$99',
+							'label'    => 'Single site license',
+							'annual'   => '$99',
 							'lifetime' => '$199',
 						],
 						'5'         => [
-							'label' => 'Five sites license',
-							'annual' => '$135',
+							'label'    => 'Five sites license',
+							'annual'   => '$135',
 							'lifetime' => '$395',
 						],
 						'unlimited' => [
-							'label' => 'Unlimited sites license',
-							'annual' => '$149',
+							'label'    => 'Unlimited sites license',
+							'annual'   => '$149',
 							'lifetime' => '',
 						],
 					],
@@ -286,7 +292,9 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 
 	/**
 	 * Storefront Pro short code
+	 *
 	 * @param $args
+	 *
 	 * @return string
 	 */
 	function render_sfpro_table( $args ) {
@@ -298,23 +306,23 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 					'name'       => 'Storefront pro',
 					'licenses'   => [
 						'1'         => [
-							'label' => 'Single site license',
-							'annual' => '$49',
+							'label'    => 'Single site license',
+							'annual'   => '$49',
 							'lifetime' => '$199',
 						],
 						'5'         => [
-							'label' => 'Five sites license',
-							'annual' => '$75',
+							'label'    => 'Five sites license',
+							'annual'   => '$75',
 							'lifetime' => '$265',
 						],
-						'25'         => [
-							'label' => '25 sites license',
-							'annual' => '$99',
+						'25'        => [
+							'label'    => '25 sites license',
+							'annual'   => '$99',
 							'lifetime' => '$595',
 						],
 						'unlimited' => [
-							'label' => 'Unlimited sites license',
-							'annual' => '$199',
+							'label'    => 'Unlimited sites license',
+							'annual'   => '$199',
 							'lifetime' => '',
 						],
 					],
@@ -331,7 +339,9 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 
 	/**
 	 * Storefront Blocks short code
+	 *
 	 * @param $args
+	 *
 	 * @return string
 	 */
 	function render_sfblocks_table( $args ) {
@@ -343,23 +353,23 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 					'name'       => 'Storefront blocks',
 					'licenses'   => [
 						'1'         => [
-							'label' => 'Single site license',
-							'annual' => '$49',
+							'label'    => 'Single site license',
+							'annual'   => '$49',
 							'lifetime' => '$199',
 						],
 						'5'         => [
-							'label' => 'Five sites license',
-							'annual' => '$75',
+							'label'    => 'Five sites license',
+							'annual'   => '$75',
 							'lifetime' => '$265',
 						],
-						'25'         => [
-							'label' => '25 sites license',
-							'annual' => '$99',
+						'25'        => [
+							'label'    => '25 sites license',
+							'annual'   => '$99',
 							'lifetime' => '$595',
 						],
 						'unlimited' => [
-							'label' => 'Unlimited sites license',
-							'annual' => '$199',
+							'label'    => 'Unlimited sites license',
+							'annual'   => '$199',
 							'lifetime' => '',
 						],
 					],
@@ -376,7 +386,9 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 
 	/**
 	 * Storefront Blocks short code
+	 *
 	 * @param $args
+	 *
 	 * @return string
 	 */
 	function render_woobuilder_blocks_table( $args ) {
@@ -389,23 +401,23 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 					'name'       => 'WooBuilder blocks',
 					'licenses'   => [
 						'1'         => [
-							'label' => 'Single site license',
-							'annual' => '$49',
+							'label'    => 'Single site license',
+							'annual'   => '$49',
 							'lifetime' => '$199',
 						],
 						'5'         => [
-							'label' => 'Five sites license',
-							'annual' => '$75',
+							'label'    => 'Five sites license',
+							'annual'   => '$75',
 							'lifetime' => '$265',
 						],
-						'25'         => [
-							'label' => '25 sites license',
-							'annual' => '$99',
+						'25'        => [
+							'label'    => '25 sites license',
+							'annual'   => '$99',
 							'lifetime' => '$595',
 						],
 						'unlimited' => [
-							'label' => 'Unlimited sites license',
-							'annual' => '$199',
+							'label'    => 'Unlimited sites license',
+							'annual'   => '$199',
 							'lifetime' => '',
 						],
 					],
@@ -420,4 +432,465 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 		);
 	}
 
+	function render_table2_styles() {
+		?>
+		<style>
+			.ppfs-price-table {
+				max-width: 1200px;
+				display: flex;
+				margin: 4em auto 0;
+			}
+
+			.ppfs-table {
+				width: 50%;
+				display: flex;
+				flex-direction: column;
+				box-shadow: 0px 0px 17px #0000006b;
+				margin: 0 1.9em;
+				border-radius: 5px;
+				text-align: center;
+				color: #464646;
+			}
+
+			.ppfs-title, .features, .cta {
+				padding: 0 2em;
+			}
+
+			/* TITLE */
+
+			.ppfs-title {
+				text-align: center;
+				background: #2d2d2d;
+				margin-top: 0;
+				padding: 2em 0;
+				border-radius: 5px 5px 0 0;
+				color: #dadada;
+			}
+
+			.ppfs-title h2 {
+				color: inherit;
+				font-size: 2em;
+				font-weight: 600;
+			}
+
+			.ppfs-title.pootle {
+				background: #ee4833;
+				position: relative;
+				color: white;
+			}
+
+
+			.ppfs-title.pootle:before {
+				border-radius: 5px 5px 0 0;
+				content: 'BEST DEAL';
+				font-weight: 600;
+				display: block;
+				position: absolute;
+				bottom: 100%;
+				left: 35%;
+				width: 30%;
+				background: #d74330;
+				padding: .5em .7em;
+			}
+
+			/* PRICE */
+
+			.ppfs-price {
+				color: #6d6d6d;
+				font-size: 1.9em;
+				font-weight: 500;
+				text-align: center;
+				margin-top: 40px;
+			}
+
+			.ppfs-price span {
+				font-weight: 600;
+				font-size: 1.4em;
+			}
+
+			.ppfs-opri-stri:after {
+				content: '';
+				display: block;
+				border-top: 2px solid;
+				width: 100%;
+				margin: -1em 0 1em;
+			}
+
+			.ppfs-price.ppfs-opri {
+				display: inline-block;
+				margin: 40px 0 0;
+				font-size: 20px;
+				opacity: 0.6;
+			}
+
+			.ppfs-price.ppfs-opri + .ppfs-price {
+				margin-top: 20px;
+			}
+
+			.ppfs-price.ppfs-opri span {
+				font-weight: 400;
+			}
+
+			/* FEATURE LIST */
+
+			.list {
+				font-size: 1.2em;
+				text-align: left;
+				line-height: 2.2;
+				text-transform: capitalize;
+				list-style-type: none;
+				margin: 0;
+				padding-left: 0;
+			}
+
+			.list i {
+				font-size: 1.5em;
+				position: relative;
+				top: 2px;
+				margin-right: 10px;
+				color: #c1c1c1;
+			}
+
+			/* BOTTOM */
+
+			.cta {
+				margin-top: auto;
+				margin-bottom: 1.6em;
+				display: flex;
+				flex-direction: column;
+			}
+
+			.license-options {
+				-webkit-appearance: none;
+				color: #6d6d6d;
+				font-size: 1.1em;
+				margin: 1.25em 0 0;
+				height: 60px;
+				border: 0;
+				padding: 0 1.25em;
+				border-radius: 5px;
+				background: calc( 100% - 1em ) 50% / .8em no-repeat #f1f1f1;
+				background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' role='img' viewBox='0 0 320 512'%3E%3Cpath fill='currentColor' d='M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z'/%3E%3C/svg%3E");
+			}
+
+			.license-options:focus {
+				outline: none;
+			}
+
+			.buy-btn {
+				border-radius: 5px;
+				color: #fff;
+				font-size: 1.25em;
+				text-decoration: none;
+				background: #2d2d2d;
+				padding: .8em;
+				display: inline-block;
+				margin: 1em 0 .7em;
+				opacity: .9;
+			}
+
+			.buy-btn:hover {
+				opacity: 1;
+			}
+
+			.buy-btn i {
+				margin-right: 10px;
+				font-size: 25px;
+			}
+
+			.buy-btn.pootle {
+				background: #ee4833;
+				color: #fff;
+				margin: 6.25em 0 .625em;
+			}
+
+			.cta p {
+				color: #6d6d6d;
+				font-size: 1.2em;
+				margin: 0;
+			}
+
+			.cta p a {
+				color: inherit;
+			}
+
+			iframe[src*='checkout.freemius'] {
+				max-height: none !important;
+			}
+
+			@media (max-width: 1024px) {
+				.ppfs-price-table {
+					flex-wrap: wrap;
+					justify-content: center;
+				}
+
+				.ppfs-table {
+					width: 100%;
+					max-width: 500px;
+					margin: 0;
+				}
+
+				.ppfs-table + .ppfs-table {
+					margin-top: 4em;
+				}
+			}
+		</style>
+		<?php
+	}
+
+
+	function render_table2_script( $args ) {
+		$id = $args['id'];
+		?>
+		<script src='https://checkout.freemius.com/checkout.min.js'></script>
+		<script>
+			( function ( $ ) {
+				$( '.fs-table-<?php echo $id ?>-license' ).change( function() {
+					$(this).parent().attr( 'data-license-active', this.value );
+				} );
+				var licensesConf = <?php echo json_encode( $args['licenses'] ) ?>;
+
+				var fsHandler = function ( args ) {
+					args = $.extend( {
+						name         : '<?php echo $args['name'] ?>',
+						success      : function ( response ) {},
+						billing_cycle: 'annual',
+						licenses     : 1
+					}, args || {} );
+					var handler = FS.Checkout.configure( <?php echo json_encode( $args['fs_co_conf'] ) ?> );
+					handler.open( args )
+				};
+				var fsBundleHandler = function ( args ) {
+					args = $.extend( {
+						name    : '<?php echo $args['bundle']['subtitle'] ?>',
+						success : function ( response ) {},
+						licenses: 1
+					}, args );
+					var handler = FS.Checkout.configure( <?php echo json_encode( $args['bundle'] ) ?> );
+					handler.open( args )
+				};
+				var $licSelect = $( '<?php echo ".fs-table-$id-license" ?>' );
+				var $annualBuy = $( '<?php echo ".fs-$id-buy-annual" ?>' );
+				var $annualTrial = $( '<?php echo ".fs-$id-trial-annual" ?>' );
+
+				var $bundleBuy = $( '<?php echo ".fs-$id-buy-bundle" ?>' );
+				var $bundleTrial = $( '<?php echo ".fs-$id-trial-bundle" ?>' );
+
+				$annualBuy.on( 'click', function ( e ) {
+					e.preventDefault();
+					fsHandler( {
+						licenses: $licSelect[0].value,
+					} );
+				} );
+
+				$annualTrial.on( 'click', function ( e ) {
+					e.preventDefault();
+					fsHandler( {
+						licenses: $licSelect[0].value,
+						trial: true,
+					} );
+				} );
+
+				$bundleBuy.on( 'click', function ( e ) {
+					e.preventDefault();
+					fsBundleHandler();
+				} );
+
+				$bundleTrial.on( 'click', function ( e ) {
+					e.preventDefault();
+					fsBundleHandler( { trial: true } );
+				} );
+				$licSelect.on( 'change', function ( e ) {
+					var licConf = licensesConf[this.value];
+					console.log( this.value, licConf );
+					if ( licConf ) {
+						$( '.ppfs-price-<?php echo $id ?>' ).html( licConf.annual );
+					}
+				} );
+			} )( jQuery );
+		</script>
+		<?php
+	}
+
+	function render_table2( $args ) {
+		if ( empty($args['bundle'] ) ) {
+			$args['bundle'] = [
+				'plugin_id'  => '1887',
+				'plan_id'    => '2788',
+				'public_key' => 'pk_e8c600d38f23c090bcdce65c8fab5',
+				'subtitle'   => 'Ecommerce bundle',
+				'reg_price'      => '$246',
+				'price'      => '$125',
+			];
+		}
+
+		$id = $args['id'];
+		$first_license = $license_options = '';
+		foreach ( $args['licenses'] as $sites => $lic_data ) {
+			if ( ! $first_license ) {
+				$first_license = $lic_data;
+			}
+			$license_options .= "<option value='$sites'>$lic_data[label]</option>";
+		}
+
+		ob_start();
+		$this->render_table2_styles( $args );
+		echo "<div class='ppfs-price-table fs-$id-wrap' data-license-active='$first_license'>";
+		?>
+			<div class="ppfs-table">
+				<header class="ppfs-title">
+					<h2><?php echo $args['name'] ?></h2>
+				</header>
+
+				<section class="features">
+					<h4 class="ppfs-price ppfs-opri">
+						&nbsp;
+					</h4>
+					<h3 class="ppfs-price">
+						<span class="ppfs-price-<?php echo $id ?>"><?php echo $first_license['annual']?></span> / year
+					</h3>
+					<ul class="list">
+						<li><i class="fa fa-check-circle"></i> 1 site license</li>
+						<li><i class="fa fa-check-circle"></i> 1 year support</li>
+						<li><i class="fa fa-check-circle"></i> 14-day money back guarantee</li>
+					</ul>
+				</section>
+
+				<footer class="cta">
+					<?php
+
+
+					if ( $args['trial'] ) {
+						$args['trial'] = "<p>Or <a href='#' class='fs-$id-trial-annual'>start 14-day free trial</a></p>";
+					}
+
+
+					echo "<select class='fs-table-$id-license license-options db mha mt3 mb4 f4'>$license_options</select>";
+					?>
+					<a href="#" class="<?php echo "fs-$id-buy-annual"; ?> buy-btn">
+						<i class="fa fa-shopping-cart"></i>
+						Buy Now
+					</a>
+					<?php echo $args['trial'] ?>
+				</footer>
+			</div>
+
+			<div class="ppfs-table">
+				<header class="ppfs-title pootle">
+					<h2><?php echo $args['bundle']['subtitle'] ?></h2>
+				</header>
+
+				<section class="features">
+					<h4 class="ppfs-price ppfs-opri ppfs-opri-stri">
+						<span><?php echo $args['bundle']['reg_price'] ?></span> / year
+					</h4>
+					<h3 class="ppfs-price">
+						<span><?php echo $args['bundle']['price'] ?></span> / year
+					</h3>
+					<ul class="list">
+						<li><i class="fa fa-check-circle"></i> Single site</li>
+						<li><i class="fa fa-check-circle"></i> Storefront Blocks</li>
+						<li><i class="fa fa-check-circle"></i> WooBuilder Blocks</li>
+						<li><i class="fa fa-check-circle"></i> Pootle Pagebuilder pro</li>
+						<li><i class="fa fa-check-circle"></i> Storefront pro</li>
+					</ul>
+				</section>
+
+				<footer class="cta">
+					<a href="#" class="<?php echo "fs-$id-buy-bundle"; ?> buy-btn pootle">
+						<i class="fa fa-shopping-cart"></i>
+						Buy Now
+					</a>
+					<p>Or <a href='#' class='fs-<?php echo $id ?>-trial-bundle'>start 14-day free trial</a></p>
+				</footer>
+			</div>
+		<?php
+		echo '</div>';
+		$this->render_table2_script( $args );
+		return ob_get_clean();
+	}
+
+	public function render_sfblocks_table2( $args ) {
+
+		return $this->render_table2(
+			wp_parse_args(
+				$args,
+				[
+					'id'         => 'sfbk',
+					'name'       => 'Storefront blocks',
+					'trial'   => true,
+					'licenses'   => [
+						'1'         => [
+							'label'    => 'Single site license',
+							'annual'   => '$49',
+							'lifetime' => '$199',
+						],
+						'5'         => [
+							'label'    => 'Five sites license',
+							'annual'   => '$75',
+							'lifetime' => '$265',
+						],
+						'25'        => [
+							'label'    => '25 sites license',
+							'annual'   => '$99',
+							'lifetime' => '$595',
+						],
+						'unlimited' => [
+							'label'    => 'Unlimited sites license',
+							'annual'   => '$199',
+							'lifetime' => '',
+						],
+					],
+					'fs_co_conf' => [
+						'plugin_id'  => '2380',
+						'plan_id'    => '4051',
+						'public_key' => 'pk_efd8794cafe3f672e71163b8ce2e1',
+						'image'      => 'https://ps.w.org/pootle-page-builder/assets/icon-128x128.png?rev=1412533'
+					]
+				]
+			)
+		);
+	}
+
+	public function render_woobuilder_blocks_table2( $args ) {
+
+		return $this->render_table2(
+			wp_parse_args(
+				$args,
+				[
+					'id'         => 'woobk',
+					'name'       => 'WooBuilder blocks',
+					'trial'   => true,
+					'licenses'   => [
+						'1'         => [
+							'label'    => 'Single site license',
+							'annual'   => '$49',
+							'lifetime' => '$199',
+						],
+						'5'         => [
+							'label'    => 'Five sites license',
+							'annual'   => '$75',
+							'lifetime' => '$265',
+						],
+						'25'        => [
+							'label'    => '25 sites license',
+							'annual'   => '$99',
+							'lifetime' => '$595',
+						],
+						'unlimited' => [
+							'label'    => 'Unlimited sites license',
+							'annual'   => '$199',
+							'lifetime' => '',
+						],
+					],
+					'fs_co_conf' => [
+						'plugin_id'  => '3514',
+						'plan_id'    => '5685',
+						'public_key' => 'pk_c52effbb9158dc8c4098e44429e4a',
+						'image'      => 'https://ps.w.org/pootle-page-builder/assets/icon-128x128.png?rev=1412533'
+					]
+				]
+			)
+		);
+	}
 }
