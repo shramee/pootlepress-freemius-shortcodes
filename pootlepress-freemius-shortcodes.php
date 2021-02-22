@@ -15,9 +15,16 @@ class Pootlepress_Freemius_Shortcodes extends Pootlepress_Freemius_Shortcodes_Ta
 	/** @var self Instance */
 	private static $_instance;
 
+	protected $url;
+
 	public function __construct() {
+		add_action( 'init', [ $this, 'init' ] );
 		$this->register_select_shortcodes();
 		$this->register_table_shortcodes();
+	}
+
+	public function init() {
+		$this->url = plugin_dir_url( __FILE__ );
 	}
 
 	protected function register_select_shortcodes() {
