@@ -451,7 +451,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 			}
 
 			.ppfs-table {
-				width: 50%;
+				flex: 0 0 50%;
 				display: flex;
 				flex-direction: column;
 				box-shadow: 0px 0px 17px #0000006b;
@@ -636,6 +636,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 				}
 
 				.ppfs-table {
+					flex: 0 0 100%;
 					width: 100%;
 					max-width: 500px;
 					margin: 0;
