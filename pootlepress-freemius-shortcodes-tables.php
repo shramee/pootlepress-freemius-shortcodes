@@ -445,20 +445,26 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 		?>
 		<style>
 			.ppfs-price-table {
+				width: 100%;
 				max-width: 1200px;
 				display: flex;
 				margin: 4em auto 0;
 			}
 
 			.ppfs-table {
-				flex: 0 0 50%;
+				flex: 0 0 47.5%;
 				display: flex;
 				flex-direction: column;
 				box-shadow: 0px 0px 17px #0000006b;
-				margin: 0 1.9em;
+				margin: 0;
 				border-radius: 5px;
 				text-align: center;
+				background: #fff;
 				color: #464646;
+			}
+
+			.ppfs-table + .ppfs-table {
+				margin-left: 5%;
 			}
 
 			.ppfs-title, .features, .cta {
@@ -575,6 +581,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 				color: #6d6d6d;
 				font-size: 1.1em;
 				margin: 1.25rem 0 0;
+				width: 100%;
 				height: 3.75rem;
 				border: 1px solid #ddd;
 				padding: 0 1.25em;
@@ -639,6 +646,10 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 					flex: 0 0 100%;
 					width: 100%;
 					max-width: 500px;
+					margin: 0;
+				}
+
+				.ppfs-table + .ppfs-table {
 					margin: 0;
 				}
 
