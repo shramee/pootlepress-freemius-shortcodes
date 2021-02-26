@@ -501,8 +501,8 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 				display: block;
 				position: absolute;
 				bottom: 100%;
-				left: 35%;
-				width: 30%;
+				left: calc( 50% - 80px );
+				width: 160px;
 				background: #d74330;
 				padding: .3em .7em .2em;
 			}
