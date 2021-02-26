@@ -202,7 +202,10 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 			echo '</div>';
 		}
 
-		echo $this->render_table_script( $args );
+		wp_enqueue_script( 'jquery' );
+		add_action( 'wp_print_footer_scripts', function () use ( $args ) {
+			echo $this->render_table_script( $args );
+		}, 999 );
 
 		echo "</div>";
 
@@ -826,7 +829,6 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 
 				<footer class="cta">
 					<a href="#" class="<?php echo "fs-$id-buy-bundle"; ?> buy-btn pootle">
-						<i class="fa fa-shopping-cart"></i>
 						Buy Now
 					</a>
 					<p>Or <a href='https://jamiemarsland.staging.wpengine.com/pootle-bundles/'>find out more</a></p>
@@ -834,7 +836,11 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 			</div>
 		<?php
 		echo '</div>';
-		$this->render_table2_script( $args );
+
+		wp_enqueue_script( 'jquery' );
+		add_action( 'wp_print_footer_scripts', function () use ( $args ) {
+			$this->render_table2_script( $args );
+		}, 999 );
 		return ob_get_clean();
 	}
 

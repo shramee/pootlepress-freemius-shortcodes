@@ -62,6 +62,28 @@ class Pootlepress_Freemius_Shortcodes extends Pootlepress_Freemius_Shortcodes_Ta
 			$license_options .= "<option value='$sites'>$lic_data[label] site license ($lic_data[price])</option>";
 		}
 
+		wp_enqueue_script( 'jquery' );
+		add_action( 'wp_print_footer_scripts', function () use ( $args ) {
+			$id = $args['id'];
+			echo "<script>
+				(function($){
+					var fsHandler = FS.Checkout.configure( " . json_encode( $args['fs_co_conf'] ) . " ),
+						fsOpenArgs = {
+							name: '$args[name]',
+							success: function(response) {
+								// Success : Maybe do something someday
+							},
+							licenses: 1
+						};
+					$('#fs-$id-buy-button').on('click', function(e) {
+						e.preventDefault();
+						fsOpenArgs.licenses = $('#fs-$id-license').val();
+						fsHandler.open( fsOpenArgs );
+					});
+				})(jQuery);
+			</script>";
+		}, 999 );
+
 		return "
 <div class='fs-$id-wrap'>
 	<table width='300'>
@@ -72,23 +94,6 @@ class Pootlepress_Freemius_Shortcodes extends Pootlepress_Freemius_Shortcodes_Ta
 	</table>
 	<button id='fs-$id-buy-button'>{$args['label']}</button>
 	<script src='https://checkout.freemius.com/checkout.min.js'></script>
-	<script>
-	(function($){
-		var fsHandler = FS.Checkout.configure( " . json_encode( $args['fs_co_conf'] ) . " ),
-			fsOpenArgs = {
-				name: '$args[name]',
-				success: function(response) {
-					// Success : Maybe do something someday
-				},
-				licenses: 1
-			};
-	    $('#fs-$id-buy-button').on('click', function(e) {
-		   	e.preventDefault();
-		   	fsOpenArgs.licenses = $('#fs-$id-license').val();
-		   	fsHandler.open( fsOpenArgs );
-		});
-	})(jQuery);
-	</script>
 </div>";
 	}
 
