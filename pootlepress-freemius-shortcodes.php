@@ -94,6 +94,10 @@ class Pootlepress_Freemius_Shortcodes extends Pootlepress_Freemius_Shortcodes_Ta
 	</table>
 	<button id='fs-$id-buy-button'>{$args['label']}</button>
 	<script src='https://checkout.freemius.com/checkout.min.js'></script>
+	<style>
+	#fs-$id-license{width: 100%;}
+	.fs-$id-wrap {width: 50%;min-width: 300px;margin: auto;text-align: center;font-size: 16px;}
+	#fs-$id-trial-button,#fs-$id-buy-button{color: #ffffff;padding: 0 34px;font-size: 40px;font-weight: 200;letter-spacing: 3px;line-height: 1.6;border: 2px solid #c02812;background: #ef4832;cursor: pointer;-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;}</style>
 </div>";
 	}
 
