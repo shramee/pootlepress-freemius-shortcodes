@@ -661,6 +661,14 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 		<?php
 	}
 
+	private function fs_conf( $args ) {
+		return json_encode( [
+			"plugin_id"  => $args["plugin_id"],
+			"plan_id"    => $args["plan_id"],
+			"public_key" => $args["public_key"],
+			"subtitle"   => $args["subtitle"],
+		] );
+	}
 
 	function render_table2_script( $args ) {
 		$id = $args['id'];
@@ -681,7 +689,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 						billing_cycle: 'annual',
 						licenses     : 1
 					}, args || {} );
-					var handler = FS.Checkout.configure( <?php echo json_encode( $args['fs_co_conf'] ) ?> );
+					var handler = FS.Checkout.configure( <?php echo $this->fs_conf( $args['fs_co_conf'] ) ?> );
 					handler.open( args )
 				};
 				var fsBundleHandler = function ( args ) {
@@ -690,7 +698,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 						success : function ( response ) {},
 						licenses: 1
 					}, args );
-					var handler = FS.Checkout.configure( <?php echo json_encode( $args['bundle'] ) ?> );
+					var handler = FS.Checkout.configure( <?php echo $this->fs_conf( $args['bundle'] ) ?> );
 					handler.open( args )
 				};
 				var $sitesCount = $( '<?php echo ".ppfs-sites-$id" ?>' );
@@ -719,13 +727,15 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 					fsHandler( {
 						billing_cycle: selectedOptions[1] || 'annual',
 						licenses: selectedOptions[0] || '1',
-					} );
+					} )
 				} );
 
 				$productTrial.on( 'click', function ( e ) {
 					e.preventDefault();
+					var selectedOptions = $licSelect[0].value.split( '|' );
 					fsHandler( {
-						licenses: $licSelect[0].value,
+						billing_cycle: selectedOptions[1] || 'annual',
+						licenses: selectedOptions[0] || '1',
 						trial: true,
 					} );
 				} );
