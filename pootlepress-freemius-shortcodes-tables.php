@@ -662,12 +662,16 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 	}
 
 	private function fs_conf( $args ) {
-		return json_encode( [
+		$fs_args = [
 			"plugin_id"  => $args["plugin_id"],
 			"plan_id"    => $args["plan_id"],
 			"public_key" => $args["public_key"],
-			"subtitle"   => $args["subtitle"],
-		] );
+		];
+
+		if ( ! empty( $args['subtitle'] ) ) {
+			$fs_args["subtitle"] = $args["subtitle"];
+		}
+		return json_encode( $fs_args );
 	}
 
 	function render_table2_script( $args ) {
