@@ -122,7 +122,6 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 		$id = $args['id'];
 
 		return "
-		<script src='https://checkout.freemius.com/checkout.min.js'></script>
 		<script>
 			( function ( $ ) {
 				$( '.fs-table-$id-license' ).change( function() {
@@ -677,13 +676,14 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 	function render_table2_script( $args ) {
 		$id = $args['id'];
 		?>
-		<script src='https://checkout.freemius.com/checkout.min.js'></script>
 		<script>
 			( function ( $ ) {
 				var id = '<?php echo $id ?>';
+
 				$( '.fs-table-<?php echo $id ?>-license' ).change( function() {
 					$(this).parent().attr( 'data-license-active', this.value );
 				} );
+
 				var licensesConf = <?php echo json_encode( $args['licenses'] ) ?>;
 
 				var fsHandler = function ( args ) {
@@ -696,6 +696,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 					var handler = FS.Checkout.configure( <?php echo $this->fs_conf( $args['fs_co_conf'] ) ?> );
 					handler.open( args )
 				};
+
 				var fsBundleHandler = function ( args ) {
 					args = $.extend( {
 						name    : '<?php echo $args['bundle']['subtitle'] ?>',
@@ -705,6 +706,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 					var handler = FS.Checkout.configure( <?php echo $this->fs_conf( $args['bundle'] ) ?> );
 					handler.open( args )
 				};
+
 				var $sitesCount = $( '<?php echo ".ppfs-sites-$id" ?>' );
 				var $price = $( '.ppfs-price-<?php echo $id ?>' );
 				var priceSuffix = {
@@ -753,6 +755,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 					e.preventDefault();
 					fsBundleHandler( { trial: true } );
 				} );
+
 				$licSelect.on( 'change', function ( e ) {
 					var sel = this.value.split( '|' );
 					var licConf = licensesConf[sel[0]];

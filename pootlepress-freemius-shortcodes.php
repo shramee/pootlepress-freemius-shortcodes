@@ -19,8 +19,33 @@ class Pootlepress_Freemius_Shortcodes extends Pootlepress_Freemius_Shortcodes_Ta
 
 	public function __construct() {
 		add_action( 'init', [ $this, 'init' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ] );
+		add_action( 'wp_print_footer_scripts', [ $this, 'wp_print_footer_scripts' ] );
 		$this->register_select_shortcodes();
 		$this->register_table_shortcodes();
+	}
+
+	public function wp_print_footer_scripts() {
+		?>
+		<script>
+			jQuery( function ( $ ) {
+				$( 'body' ).on( 'click', '.ppfs-co-woobuilder-blocks', function ( e ) {
+					e.preventDefault();
+					var handler = FS.Checkout.configure( {"plugin_id": "3514", "plan_id": "5685", "public_key": "pk_c52effbb9158dc8c4098e44429e4a"} );
+					handler.open( {
+						name         : 'WooBuilder blocks',
+						success      : function ( response ) {},
+						billing_cycle: 'annual',
+						licenses     : 1
+					} )
+				} );
+			} );
+		</script>
+		<?php
+	}
+
+	public function wp_enqueue_scripts() {
+		wp_enqueue_script( 'freemius-checkout', '//checkout.freemius.com/checkout.min.js', [ 'jquery' ], '1', 'in_footer' );
 	}
 
 	public function init() {
