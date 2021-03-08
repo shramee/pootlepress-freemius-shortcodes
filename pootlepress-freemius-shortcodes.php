@@ -284,7 +284,7 @@ class Pootlepress_Freemius_Shortcodes extends Pootlepress_Freemius_Shortcodes_Ta
 	}
 
 	/**
-	 * Storefront Blocks short code
+	 * WooBuilder Blocks short code
 	 * @param $args
 	 * @return string
 	 */
@@ -324,7 +324,6 @@ class Pootlepress_Freemius_Shortcodes extends Pootlepress_Freemius_Shortcodes_Ta
 			)
 		);
 	}
-
 }
 
 Pootlepress_Freemius_Shortcodes::instance();

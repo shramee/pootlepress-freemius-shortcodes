@@ -11,6 +11,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 		add_shortcode( 'fs_table_sfblocks', [ $this, 'render_sfblocks_table' ] );
 		add_shortcode( 'fs_table_woobuilder_blocks', [ $this, 'render_woobuilder_blocks_table' ] );
 		add_shortcode( 'fs_table2_sfblocks', [ $this, 'render_sfblocks_table2' ] );
+		add_shortcode( 'fs_table2_sfpro', [ $this, 'render_sfpro_table2' ] );
 		add_shortcode( 'fs_table2_woobuilder_blocks', [ $this, 'render_woobuilder_blocks_table2' ] );
 	}
 
@@ -908,6 +909,47 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 						'plugin_id'  => '2380',
 						'plan_id'    => '4051',
 						'public_key' => 'pk_efd8794cafe3f672e71163b8ce2e1',
+						'image'      => 'https://ps.w.org/pootle-page-builder/assets/icon-128x128.png?rev=1412533'
+					]
+				]
+			)
+		);
+	}
+
+	public function render_sfpro_table2( $args ) {
+
+		return $this->render_table2(
+			wp_parse_args(
+				$args,
+				[
+					'id'         => 'sfp',
+					'name'       => 'Storefront pro',
+					'licenses'   => [
+						'1'         => [
+							'label'    => 'Single site license',
+							'annual'   => '$49',
+							'lifetime' => '$199',
+						],
+						'5'         => [
+							'label'    => '5 sites license',
+							'annual'   => '$75',
+							'lifetime' => '$265',
+						],
+						'25'        => [
+							'label'    => '25 sites license',
+							'annual'   => '$99',
+							'lifetime' => '$595',
+						],
+						'unlimited' => [
+							'label'    => 'Unlimited sites license',
+							'annual'   => '$199',
+							'lifetime' => '',
+						],
+					],
+					'fs_co_conf' => [
+						'plugin_id'  => '553',
+						'plan_id'    => '784',
+						'public_key' => 'pk_4626a94d653f306db2491e3b43d1c',
 						'image'      => 'https://ps.w.org/pootle-page-builder/assets/icon-128x128.png?rev=1412533'
 					]
 				]
