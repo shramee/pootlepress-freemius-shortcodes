@@ -455,7 +455,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 				flex: 0 0 47.5%;
 				display: flex;
 				flex-direction: column;
-				box-shadow: 0px 0px 17px #0000006b;
+				box-shadow: 0 0 17px #0000006b;
 				margin: 0;
 				border-radius: 5px;
 				text-align: center;
@@ -608,6 +608,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 
 			.buy-btn:hover {
 				opacity: 1;
+				color: #fff;
 			}
 
 			.buy-btn i {
@@ -861,7 +862,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 					<a href="#" class="<?php echo "fs-$id-buy-bundle"; ?> buy-btn pootle">
 						Buy Now
 					</a>
-					<p>Or <a href='https://jamiemarsland.staging.wpengine.com/pootle-bundles/'>find out more</a></p>
+					<p>Or <a href='https://www.pootlepress.com/pootle-bundles/'>find out more</a></p>
 				</footer>
 			</div>
 		<?php
