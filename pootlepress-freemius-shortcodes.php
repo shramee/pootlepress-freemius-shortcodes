@@ -34,6 +34,7 @@ class Pootlepress_Freemius_Shortcodes extends Pootlepress_Freemius_Shortcodes_Ta
 					var handler = FS.Checkout.configure( {"plugin_id": "3514", "plan_id": "5685", "public_key": "pk_c52effbb9158dc8c4098e44429e4a"} );
 					handler.open( {
 						name         : 'WooBuilder blocks',
+						purchaseCompleted: ppFreemiusTrackingCallback( 'WooBuilder blocks' );
 						success      : function ( response ) {},
 						billing_cycle: 'annual',
 						licenses     : 1
@@ -45,7 +46,61 @@ class Pootlepress_Freemius_Shortcodes extends Pootlepress_Freemius_Shortcodes_Ta
 	}
 
 	public function wp_enqueue_scripts() {
-		wp_enqueue_script( 'freemius-checkout', '//checkout.freemius.com/checkout.min.js', [ 'jquery' ], '1', 'in_footer' );
+		wp_enqueue_script( 'freemius-checkout', '//checkout.freemius.com/checkout.min.js', [ 'jquery' ] );
+		wp_add_inline_script( 'freemius-checkout', <<<JS
+		function ppFreemiusTrackingCallback( productName ) {
+			return function ( response ) {
+				console.log( 'Handling purchase success ' + productName );
+				var
+					isTrial        = (
+						null != response.purchase.trial_ends
+					),
+					isSubscription = (
+						null != response.purchase.initial_amount
+					),
+					total          = isTrial ? 0 : isSubscription ? response.purchase.initial_amount : response.purchase.gross,
+					storeUrl       = 'https://pootlepress.com',
+					storeName      = 'PootlePress';
+
+				if ( typeof fbq !== "undefined" ) {
+					fbq( 'track', 'Purchase', {
+						currency: response.purchase.currency.toUpperCase(),
+						value   : total
+					} );
+				}
+
+				if ( typeof ga !== "undefined" ) {
+					ga( 'send', 'event', 'plugin', 'purchase', productName, response.purchase.initial_amount.toString() );
+
+					ga( 'require', 'ecommerce' );
+
+					ga( 'ecommerce:addTransaction', {
+						'id'         : response.purchase.id.toString(), // Transaction ID. Required.
+						'affiliation': storeName,            					  // Affiliation or store name.
+						'revenue'    : total,                 		      // Grand Total.
+					} );
+
+					ga( 'ecommerce:addItem', {
+						'id'      : response.purchase.id.toString(),                // Transaction ID. Required.
+						'name'    : productName,                                  // Product name. Required.
+						'sku'     : response.purchase.plan_id.toString(),          // SKU/code.
+						'category': 'Plugin',                                 // Category or variation.
+						'price'   : response.purchase.initial_amount.toString(), // Unit price.
+						'quantity': '1' // Quantity.
+					} );
+
+					ga( 'ecommerce:send' );
+
+					ga( 'send', {
+						hitType : 'pageview',
+						page    : '/purchase-completed/',
+						location: storeUrl + '/purchase-completed/'
+					} );
+				}
+			};
+		}
+JS
+		);
 	}
 
 	public function init() {
@@ -103,6 +158,7 @@ class Pootlepress_Freemius_Shortcodes extends Pootlepress_Freemius_Shortcodes_Ta
 					$('#fs-$id-buy-button').on('click', function(e) {
 						e.preventDefault();
 						fsOpenArgs.licenses = $('#fs-$id-license').val();
+						fsOpenArgs.purchaseCompleted = ppFreemiusTrackingCallback( '$args[name]' );
 						fsHandler.open( fsOpenArgs );
 					});
 				})(jQuery);

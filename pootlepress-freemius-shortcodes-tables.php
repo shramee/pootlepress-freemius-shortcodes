@@ -140,12 +140,15 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 					e.preventDefault();
 					fsOpenArgs.licenses = $( this ).data( 'sites' );
 					fsOpenArgs.billing_cycle = 'annual';
+					fsOpenArgs.purchaseCompleted = ppFreemiusTrackingCallback( '$args[name]' );
+
 					fsHandler.open( fsOpenArgs );
 				} );
 				$( '.fs-$id-buy-lifetime' ).on( 'click', function ( e ) {
 					e.preventDefault();
 					fsOpenArgs.licenses = $( this ).data( 'sites' );
 					fsOpenArgs.billing_cycle = 'lifetime';
+					fsOpenArgs.purchaseCompleted = ppFreemiusTrackingCallback( '$args[name]' );
 					fsHandler.open( fsOpenArgs );
 				} );
 			} )( jQuery );
@@ -693,7 +696,8 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 						name         : '<?php echo $args['name'] ?>',
 						success      : function ( response ) {},
 						billing_cycle: 'annual',
-						licenses     : 1
+						licenses     : 1,
+						purchaseCompleted: ppFreemiusTrackingCallback( '<?php echo $args['name'] ?>' )
 					}, args || {} );
 					var handler = FS.Checkout.configure( <?php echo $this->fs_conf( $args['fs_co_conf'] ) ?> );
 					handler.open( args )
@@ -703,7 +707,8 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 					args = $.extend( {
 						name    : '<?php echo $args['bundle']['subtitle'] ?>',
 						success : function ( response ) {},
-						licenses: 1
+						licenses: 1,
+						purchaseCompleted: ppFreemiusTrackingCallback( '<?php echo $args['bundle']['subtitle'] ?>' )
 					}, args );
 					var handler = FS.Checkout.configure( <?php echo $this->fs_conf( $args['bundle'] ) ?> );
 					handler.open( args )
