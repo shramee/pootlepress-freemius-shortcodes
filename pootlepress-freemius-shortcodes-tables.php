@@ -10,9 +10,12 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 		add_shortcode( 'fs_table_sfpro', [ $this, 'render_sfpro_table' ] );
 		add_shortcode( 'fs_table_sfblocks', [ $this, 'render_sfblocks_table' ] );
 		add_shortcode( 'fs_table_woobuilder_blocks', [ $this, 'render_woobuilder_blocks_table' ] );
+
 		add_shortcode( 'fs_table2_sfblocks', [ $this, 'render_sfblocks_table2' ] );
 		add_shortcode( 'fs_table2_sfpro', [ $this, 'render_sfpro_table2' ] );
 		add_shortcode( 'fs_table2_woobuilder_blocks', [ $this, 'render_woobuilder_blocks_table2' ] );
+		add_shortcode( 'fs_table2_gbpro', [ $this, 'render_gbpro_table2' ] );
+		add_shortcode( 'fs_table2_block_injector', [ $this, 'render_block_injector_table2' ] );
 	}
 
 	protected function check_icon() {
@@ -140,12 +143,14 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 					e.preventDefault();
 					fsOpenArgs.licenses = $( this ).data( 'sites' );
 					fsOpenArgs.billing_cycle = 'annual';
+					fsOpenArgs.purchaseCompleted = ppFreemiusTrackingCallback( '$args[name]' );
 					fsHandler.open( fsOpenArgs );
 				} );
 				$( '.fs-$id-buy-lifetime' ).on( 'click', function ( e ) {
 					e.preventDefault();
 					fsOpenArgs.licenses = $( this ).data( 'sites' );
 					fsOpenArgs.billing_cycle = 'lifetime';
+					fsOpenArgs.purchaseCompleted = ppFreemiusTrackingCallback( '$args[name]' );
 					fsHandler.open( fsOpenArgs );
 				} );
 			} )( jQuery );
@@ -177,8 +182,10 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 		}
 
 
-		if ( $args['trial'] ) {
+		if ( ! empty( $args['trial'] ) ) {
 			$args['trial'] = "<div class='f5 pt3'>Or <a href='#'>start 14-day free trial</a></div>";
+		} else {
+			$args['trial'] = '';
 		}
 
 		echo "<div class='fs-$id-wrap' data-license-active='$first_license'>";
@@ -693,7 +700,8 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 						name         : '<?php echo $args['name'] ?>',
 						success      : function ( response ) {},
 						billing_cycle: 'annual',
-						licenses     : 1
+						licenses     : 1,
+						purchaseCompleted: ppFreemiusTrackingCallback( '<?php echo $args['name'] ?>' )
 					}, args || {} );
 					var handler = FS.Checkout.configure( <?php echo $this->fs_conf( $args['fs_co_conf'] ) ?> );
 					handler.open( args )
@@ -703,7 +711,8 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 					args = $.extend( {
 						name    : '<?php echo $args['bundle']['subtitle'] ?>',
 						success : function ( response ) {},
-						licenses: 1
+						licenses: 1,
+						purchaseCompleted: ppFreemiusTrackingCallback( '<?php echo $args['bundle']['subtitle'] ?>' )
 					}, args );
 					var handler = FS.Checkout.configure( <?php echo $this->fs_conf( $args['bundle'] ) ?> );
 					handler.open( args )
@@ -790,6 +799,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 		foreach ( $args['licenses'] as $sites => $lic_data ) {
 			if ( ! $first_license ) {
 				$first_license = $lic_data;
+				$first_license['sites'] = $sites;
 			}
 			$license_options .= "<option value='$sites|annual'>$lic_data[label] &mdash; Annual</option>";
 		}
@@ -802,7 +812,8 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 		$license_options .= "</optgroup>";
 		ob_start();
 		$this->render_table2_styles( $args );
-		echo "<div class='ppfs-price-table fs-$id-wrap' data-license-active='$first_license'>";
+
+		echo "<div class='ppfs-price-table fs-$id-wrap' data-license-active='$first_license[sites]'>";
 		?>
 		<div class="ppfs-table">
 			<header class="ppfs-title">
@@ -825,8 +836,10 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 
 			<footer class="cta">
 				<?php
-				if ( $args['trial'] ) {
+				if ( ! empty( $args['trial'] ) ) {
 					$args['trial'] = "<p>Or <a href='#' class='fs-$id-trial'>start 14-day free trial</a></p>";
+				} else {
+					$args['trial'] = '';
 				}
 				echo "<select class='fs-table-$id-license license-options db mha mt3 mb4 f4'>$license_options</select>";
 				?>
@@ -850,13 +863,13 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 					<span><?php echo $args['bundle']['price'] ?></span> / year
 				</h3>
 				<ul class="list">
-					<li><?php echo $this->check_icon(); ?></i> Single site</li>
-					<li><?php echo $this->check_icon(); ?></i> Storefront Blocks</li>
-					<li><?php echo $this->check_icon(); ?></i> WooBuilder Blocks</li>
-					<li><?php echo $this->check_icon(); ?></i> Gutenberg pro</li>
-					<li><?php echo $this->check_icon(); ?></i> WooHoo Bar</li>
-					<li><?php echo $this->check_icon(); ?></i> Pootle Pagebuilder pro</li>
-					<li><?php echo $this->check_icon(); ?></i> Storefront pro</li>
+					<li><?php echo $this->check_icon(); ?> Single site</li>
+					<li><?php echo $this->check_icon(); ?> Storefront Blocks</li>
+					<li><?php echo $this->check_icon(); ?> WooBuilder Blocks</li>
+					<li><?php echo $this->check_icon(); ?> Gutenberg pro</li>
+					<li><?php echo $this->check_icon(); ?> WooHoo Bar</li>
+					<li><?php echo $this->check_icon(); ?> Block Injector</li>
+					<li><?php echo $this->check_icon(); ?> Storefront pro</li>
 				</ul>
 			</section>
 
@@ -905,7 +918,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 						'unlimited' => [
 							'label'    => 'Unlimited sites',
 							'annual'   => '$199',
-							'lifetime' => '',
+							'lifetime' => '$795',
 						],
 					],
 					'fs_co_conf' => [
@@ -946,7 +959,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 						'unlimited' => [
 							'label'    => 'Unlimited sites license',
 							'annual'   => '$199',
-							'lifetime' => '',
+							'lifetime' => '$795',
 						],
 					],
 					'fs_co_conf' => [
@@ -988,12 +1001,96 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 						'unlimited' => [
 							'label'    => 'Unlimited sites',
 							'annual'   => '$199',
-							'lifetime' => '',
+							'lifetime' => '$795',
 						],
 					],
 					'fs_co_conf' => [
 						'plugin_id'  => '3514',
 						'plan_id'    => '5685',
+						'public_key' => 'pk_c52effbb9158dc8c4098e44429e4a',
+						'image'      => 'https://ps.w.org/pootle-page-builder/assets/icon-128x128.png?rev=1412533'
+					]
+				]
+			)
+		);
+	}
+
+	public function render_gbpro_table2( $args ) {
+
+		return $this->render_table2(
+			wp_parse_args(
+				$args,
+				[
+					'id'         => 'gbpro',
+					'name'       => 'Gutenberg Pro',
+					'trial'      => true,
+					'licenses'   => [
+						'1'         => [
+							'label'    => '1 site',
+							'annual'   => '$49',
+							'lifetime' => '$199',
+						],
+						'5'         => [
+							'label'    => '5 sites',
+							'annual'   => '$75',
+							'lifetime' => '$265',
+						],
+						'25'        => [
+							'label'    => '25 sites',
+							'annual'   => '$99',
+							'lifetime' => '$595',
+						],
+						'unlimited' => [
+							'label'    => 'Unlimited sites',
+							'annual'   => '$199',
+							'lifetime' => '$795',
+						],
+					],
+					'fs_co_conf' => [
+						'plugin_id'  => '7197',
+						'plan_id'    => '11727',
+						'public_key' => 'pk_ca5a930ab218f6bebb0587a1bea01',
+						'image'      => 'https://ps.w.org/pootle-page-builder/assets/icon-128x128.png?rev=1412533'
+					]
+				]
+			)
+		);
+	}
+
+	public function render_block_injector_table2( $args ) {
+
+		return $this->render_table2(
+			wp_parse_args(
+				$args,
+				[
+					'id'         => 'block-inj',
+					'name'       => 'Block injector',
+					'trial'      => true,
+					'licenses'   => [
+						'1'         => [
+							'label'    => '1 site',
+							'annual'   => '$49',
+							'lifetime' => '$199',
+						],
+						'5'         => [
+							'label'    => '5 sites',
+							'annual'   => '$75',
+							'lifetime' => '$265',
+						],
+						'25'        => [
+							'label'    => '25 sites',
+							'annual'   => '$99',
+							'lifetime' => '$595',
+						],
+						'unlimited' => [
+							'label'    => 'Unlimited sites',
+							'annual'   => '$199',
+							'lifetime' => '$795',
+						],
+					],
+					'fs_co_conf' => [
+						'plugin_id'  => '9001',
+						'plan_id'    => '15089',
 						'public_key' => 'pk_c52effbb9158dc8c4098e44429e4a',
 						'image'      => 'https://ps.w.org/pootle-page-builder/assets/icon-128x128.png?rev=1412533'
 					]
