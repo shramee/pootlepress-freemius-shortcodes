@@ -34,7 +34,7 @@ class Pootlepress_Freemius_Shortcodes extends Pootlepress_Freemius_Shortcodes_Ta
 					var handler = FS.Checkout.configure( {"plugin_id": "3514", "plan_id": "5685", "public_key": "pk_c52effbb9158dc8c4098e44429e4a"} );
 					handler.open( {
 						name         : 'WooBuilder blocks',
-						purchaseCompleted: ppFreemiusTrackingCallback( 'WooBuilder blocks' );
+						purchaseCompleted: ppFreemiusTrackingCallback( 'WooBuilder blocks' ),
 						success      : function ( response ) {},
 						billing_cycle: 'annual',
 						licenses     : 1
