@@ -140,15 +140,12 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 					e.preventDefault();
 					fsOpenArgs.licenses = $( this ).data( 'sites' );
 					fsOpenArgs.billing_cycle = 'annual';
-					fsOpenArgs.purchaseCompleted = ppFreemiusTrackingCallback( '$args[name]' );
-
 					fsHandler.open( fsOpenArgs );
 				} );
 				$( '.fs-$id-buy-lifetime' ).on( 'click', function ( e ) {
 					e.preventDefault();
 					fsOpenArgs.licenses = $( this ).data( 'sites' );
 					fsOpenArgs.billing_cycle = 'lifetime';
-					fsOpenArgs.purchaseCompleted = ppFreemiusTrackingCallback( '$args[name]' );
 					fsHandler.open( fsOpenArgs );
 				} );
 			} )( jQuery );
@@ -696,8 +693,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 						name         : '<?php echo $args['name'] ?>',
 						success      : function ( response ) {},
 						billing_cycle: 'annual',
-						licenses     : 1,
-						purchaseCompleted: ppFreemiusTrackingCallback( '<?php echo $args['name'] ?>' )
+						licenses     : 1
 					}, args || {} );
 					var handler = FS.Checkout.configure( <?php echo $this->fs_conf( $args['fs_co_conf'] ) ?> );
 					handler.open( args )
@@ -707,8 +703,7 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 					args = $.extend( {
 						name    : '<?php echo $args['bundle']['subtitle'] ?>',
 						success : function ( response ) {},
-						licenses: 1,
-						purchaseCompleted: ppFreemiusTrackingCallback( '<?php echo $args['bundle']['subtitle'] ?>' )
+						licenses: 1
 					}, args );
 					var handler = FS.Checkout.configure( <?php echo $this->fs_conf( $args['bundle'] ) ?> );
 					handler.open( args )
@@ -809,67 +804,69 @@ class Pootlepress_Freemius_Shortcodes_Tables {
 		$this->render_table2_styles( $args );
 		echo "<div class='ppfs-price-table fs-$id-wrap' data-license-active='$first_license'>";
 		?>
-			<div class="ppfs-table">
-				<header class="ppfs-title">
-					<h2><?php echo $args['name'] ?></h2>
-				</header>
+		<div class="ppfs-table">
+			<header class="ppfs-title">
+				<h2><?php echo $args['name'] ?></h2>
+			</header>
 
-				<section class="features">
-					<h4 class="ppfs-price ppfs-opri">
-						&nbsp;
-					</h4>
-					<h3 class="ppfs-price ppfs-price-<?php echo $id ?>">
-						<span><?php echo $first_license['annual']?></span> / year
-					</h3>
-					<ul class="list">
-						<li><?php echo $this->check_icon(); ?></i> <span class="ppfs-sites-<?php echo $id ?>">1 site</span> license</li>
-						<li><?php echo $this->check_icon(); ?></i> <span class="ppfs-support-term-<?php echo $id ?>">1 year</span> support and updates</li>
-						<li><?php echo $this->check_icon(); ?></i> 14-day money back guarantee</li>
-					</ul>
-				</section>
+			<section class="features">
+				<h4 class="ppfs-price ppfs-opri">
+					&nbsp;
+				</h4>
+				<h3 class="ppfs-price ppfs-price-<?php echo $id ?>">
+					<span><?php echo $first_license['annual']?></span> / year
+				</h3>
+				<ul class="list">
+					<li><?php echo $this->check_icon(); ?></i> <span class="ppfs-sites-<?php echo $id ?>">1 site</span> license</li>
+					<li><?php echo $this->check_icon(); ?></i> <span class="ppfs-support-term-<?php echo $id ?>">1 year</span> support and updates</li>
+					<li><?php echo $this->check_icon(); ?></i> 14-day money back guarantee</li>
+				</ul>
+			</section>
 
-				<footer class="cta">
-					<?php
-					if ( $args['trial'] ) {
-						$args['trial'] = "<p>Or <a href='#' class='fs-$id-trial'>start 14-day free trial</a></p>";
-					}
-					echo "<select class='fs-table-$id-license license-options db mha mt3 mb4 f4'>$license_options</select>";
-					?>
-					<a href="#" class="<?php echo "fs-$id-buy-subs"; ?> buy-btn">
-						Buy Now
-					</a>
-					<?php echo $args['trial'] ?>
-				</footer>
-			</div>
+			<footer class="cta">
+				<?php
+				if ( $args['trial'] ) {
+					$args['trial'] = "<p>Or <a href='#' class='fs-$id-trial'>start 14-day free trial</a></p>";
+				}
+				echo "<select class='fs-table-$id-license license-options db mha mt3 mb4 f4'>$license_options</select>";
+				?>
+				<a href="#" class="<?php echo "fs-$id-buy-subs"; ?> buy-btn">
+					Buy Now
+				</a>
+				<?php echo $args['trial'] ?>
+			</footer>
+		</div>
 
-			<div class="ppfs-table">
-				<header class="ppfs-title pootle">
-					<h2><?php echo $args['bundle']['subtitle'] ?></h2>
-				</header>
+		<div class="ppfs-table">
+			<header class="ppfs-title pootle">
+				<h2><?php echo $args['bundle']['subtitle'] ?></h2>
+			</header>
 
-				<section class="features">
-					<h4 class="ppfs-price ppfs-opri ppfs-opri-stri">
-						<span><?php echo $args['bundle']['reg_price'] ?></span> / year
-					</h4>
-					<h3 class="ppfs-price">
-						<span><?php echo $args['bundle']['price'] ?></span> / year
-					</h3>
-					<ul class="list">
-						<li><?php echo $this->check_icon(); ?></i> Single site</li>
-						<li><?php echo $this->check_icon(); ?></i> Storefront Blocks</li>
-						<li><?php echo $this->check_icon(); ?></i> WooBuilder Blocks</li>
-						<li><?php echo $this->check_icon(); ?></i> Pootle Pagebuilder pro</li>
-						<li><?php echo $this->check_icon(); ?></i> Storefront pro</li>
-					</ul>
-				</section>
+			<section class="features">
+				<h4 class="ppfs-price ppfs-opri ppfs-opri-stri">
+					<span><?php echo $args['bundle']['reg_price'] ?></span> / year
+				</h4>
+				<h3 class="ppfs-price">
+					<span><?php echo $args['bundle']['price'] ?></span> / year
+				</h3>
+				<ul class="list">
+					<li><?php echo $this->check_icon(); ?></i> Single site</li>
+					<li><?php echo $this->check_icon(); ?></i> Storefront Blocks</li>
+					<li><?php echo $this->check_icon(); ?></i> WooBuilder Blocks</li>
+					<li><?php echo $this->check_icon(); ?></i> Gutenberg pro</li>
+					<li><?php echo $this->check_icon(); ?></i> WooHoo Bar</li>
+					<li><?php echo $this->check_icon(); ?></i> Pootle Pagebuilder pro</li>
+					<li><?php echo $this->check_icon(); ?></i> Storefront pro</li>
+				</ul>
+			</section>
 
-				<footer class="cta">
-					<a href="#" class="<?php echo "fs-$id-buy-bundle"; ?> buy-btn pootle">
-						Buy Now
-					</a>
-					<p>Or <a href='https://www.pootlepress.com/pootle-bundles/'>find out more</a></p>
-				</footer>
-			</div>
+			<footer class="cta">
+				<a href="#" class="<?php echo "fs-$id-buy-bundle"; ?> buy-btn pootle">
+					Buy Now
+				</a>
+				<p>Or <a href='https://www.pootlepress.com/pootle-bundles/'>find out more</a></p>
+			</footer>
+		</div>
 		<?php
 		echo '</div>';
 
